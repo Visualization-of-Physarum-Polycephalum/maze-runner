@@ -1,21 +1,36 @@
 const fs = require("fs");
 const path = require("path");
+import React from 'react';
+import { IsoTwoTone } from "@material-ui/icons";
 import { configure, shallow, mount, render } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
 const MainContainer = require("../client/containers/MainContainer");
+const App = require("../App");
 
 configure({ adapter: new Adapter() });
 
-describe("test", () => {
-  it("this is testing", () => {
-    expect("").toEqual("");
+describe('algorithm\'s test', () => {
+  let wrapper;
+
+  beforeAll(() => {
+    wrapper = shallow(<MainContainer />);
   });
 
-  it("this is another test", () => {
-    expect("4").toBe("4");
+  it('should pass this test', () => {
+
   });
-});
+})
+
+// describe("test", () => {
+//   it("this is testing", () => {
+//     expect("").toEqual("");
+//   });
+
+//   it("this is another test", () => {
+//     expect("4").toBe("4");
+//   });
+// });
 
 // MainContainer => testing grid
 // component did mount

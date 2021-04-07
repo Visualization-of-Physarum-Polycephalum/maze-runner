@@ -1,4 +1,4 @@
-# scratch-project
-## team yolo MAD YETI-CRAB
-Dijkstra maze runner
+# Iteration-Project
+Weighted Dijkstra Maze Runner
 
+Originally by Team Yeti-Crab

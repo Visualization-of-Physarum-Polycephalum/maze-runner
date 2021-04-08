@@ -5,32 +5,40 @@ import { IsoTwoTone } from "@material-ui/icons";
 import { configure, shallow, mount, render } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-const MainContainer = require("../client/containers/MainContainer");
-const App = require("../App");
+// const MainContainer = require("../client/containers/MainContainer");
+import MainContainer from "../client/containers/MainContainer";
+import { ExpansionPanelActions } from '@material-ui/core';
 
 configure({ adapter: new Adapter() });
 
 describe('algorithm\'s test', () => {
-  let wrapper;
+  
+  describe('MainContainer shallow tests', () => {
+    let wrapper;
+    beforeAll(() => {
+      wrapper = shallow(<MainContainer />);
+    });
 
-  beforeAll(() => {
-    wrapper = shallow(<MainContainer />);
-  });
+    it('should have a state where board is a 15 x 30 grid; 450 nodes total', () => {
+      expect(Object.keys(wrapper.state().board)).toHaveLength(450);
+    });
 
-  it('should pass this test', () => {
+    it('should have a div with the className gridContainer', () => {
+      // expect(wrapper.find('div')).toHaveLength(4);
+      expect(wrapper.find('div.gridContainer')).toHaveLength(1);
+    });
+    
+    it('should have gridContainer contain 450 button elements', () => {
+      expect(wrapper.find('.gridContainer').first().find('button')).toHaveLength(450);
+    });
+    
+    it('should initialize head to 0,0 and target to 9,9', () => {
+      expect(wrapper.find('.gridContainer').first().find('button.head')).toHaveLength(1);
+      expect(wrapper.find('.gridContainer').first()["0,0"].className).toHaveLength('head');
+    });
 
-  });
-})
-
-// describe("test", () => {
-//   it("this is testing", () => {
-//     expect("").toEqual("");
-//   });
-
-//   it("this is another test", () => {
-//     expect("4").toBe("4");
-//   });
-// });
+  });  
+});
 
 // MainContainer => testing grid
 // component did mount

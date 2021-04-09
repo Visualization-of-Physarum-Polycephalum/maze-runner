@@ -16,11 +16,11 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          presets: ["@babel/env", "@babel/react", "@babel/preset-react"],
-          plugins: [
-            "@babel/plugin-transform-runtime",
-            "@babel/transform-async-to-generator",
-          ],
+          // presets: ["@babel/env", "@babel/react", "@babel/preset-react"],
+          // plugins: [
+          //   "@babel/plugin-transform-runtime",
+          //   "@babel/transform-async-to-generator",
+          // ],
         },
       },
       {

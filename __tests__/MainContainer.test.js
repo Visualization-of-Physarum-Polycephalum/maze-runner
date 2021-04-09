@@ -5,13 +5,19 @@ import { IsoTwoTone } from "@material-ui/icons";
 import { configure, shallow, mount, render } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useLayoutEffect: jest.requireActual('react').useEffect,
+}));
+
 // const MainContainer = require("../client/containers/MainContainer");
 import MainContainer from "../client/containers/MainContainer";
 import { ExpansionPanelActions } from '@material-ui/core';
 
 configure({ adapter: new Adapter() });
 
-describe('algorithm\'s test', () => {
+
+describe('algorithm test', () => {
   
   describe('MainContainer shallow tests', () => {
     let wrapper;
@@ -33,16 +39,50 @@ describe('algorithm\'s test', () => {
     });
   });
 
-  xdescribe('MainContainer mount / render tests', () => {
+  describe('MainContainer mount tests', () => {
     let wrapper;
     
     beforeAll(() => {
       wrapper = mount(<MainContainer />);
+      jest.useFakeTimers();
+    });
+
+    afterAll(() => {
+
     })
 
-    xit('should initialize head to 0,0 and target to 9,9', () => {
-      expect(wrapper.find('.gridContainer').first().find('button.head')).toHaveLength(1);
-      // expect(wrapper.find('.gridContainer').first().find('button.head').first().id).toBe('0,0');
+    it('should have exactly one head button with an id of "0,0" inside gridContainer', () => {
+      let head = wrapper
+        .find('.gridContainer')
+        .find('.head');
+
+      expect(head).toHaveLength(1);
+
+      head = head.first();
+
+      expect(head.props()).toHaveProperty('id', '0,0');
+    });
+
+    it('should have exactly one target button with an id of "9,9" inside gridContainer', () => {
+      let target = wrapper
+        .find('.gridContainer')
+        .find('.target');
+
+      expect(target).toHaveLength(1);
+
+      target = target.first();
+
+      expect(target.props()).toHaveProperty('id', '9,9');
+    });
+
+    it('should have a path of length 17 upon invoking algorithm() from default state', () => {
+      const instance = wrapper.instance();
+      expect(instance.state.path).toHaveLength(0);
+
+      instance.algorithm();
+      jest.runAllTimers();
+
+      expect(instance.state.path).toHaveLength(17);
     });
   })
 });
